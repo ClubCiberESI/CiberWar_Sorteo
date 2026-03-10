@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ciber War</title>
+    <!-- fonts inspired by the example design -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- fondos y efectos visuales -->
+    <div class="tech-pattern"></div>
+    <div class="battle-gradient"></div>
+    <div class="scanlines"></div>
+
+    <div class="landscape-container">
+        <header class="header-container">
+            <div class="logo-row">
+                <img src="ciber_logo.png" alt="Ciber Logo">
+                <img src="gsya_logo.png" alt="GSYA Logo">
+                <img src="esi_logo.png" alt="ESI Logo">
+                <img src="uclm_logo.png" alt="UCLM Logo">
+            </div>
+            <h1 class="title-font glitch-effect">Ciber War</h1>
+            <div class="header-underline"></div>
+        </header>
+
+        <section id="raffle-section">
+            <h2>Raffle</h2>
+            <div id="teams">
+                <div class="team team-section red-side" id="team-red">
+                    <h3>Red Team</h3>
+                    <ul></ul>
+                </div>
+                <!-- badge vs -->
+                <div class="vs-badge-wrapper">
+                    <div class="vs-badge"><span>VS</span></div>
+                </div>
+                <div class="team team-section blue-side" id="team-blue">
+                    <h3>Blue Team</h3>
+                    <ul></ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="participant-controls">
+            <h2>Hackers</h2>
+            <form id="add-participant-form">
+                <input type="text" id="participant-name" placeholder="Name" required>
+                <button type="submit">Add</button>
+            </form>
+            </section>
+
+        <section id="participant-list-section">
+            <h2>Roster</h2>
+            <ul id="participant-list"></ul>
+        </section>
+
+        <section id="transparency-section">
+            <h2>Transparency</h2>
+            <p>El algoritmo de reparto aleatorio selecciona un único participante no
+            asignado y no manual cada vez que se pulsa el logo "VS". La decisión de
+            asignar al equipo rojo o azul depende de los tamaños actuales: el equipo con
+            menos miembros tiene más probabilidad de recibir al siguiente, y nunca se
+            permite que la diferencia de tamaños supere uno. Las asignaciones manuales
+            marcan al participante como excluido del reparto automático y se preservan
+            incluso tras recargar o reiniciar, de modo que no vuelven a entrar en la
+            cola de sorteo.</p>
+            <p>De este modo se mantiene equidad dinámica (balance estrictamente 0‑1) y
+            total transparencia sobre cómo se determina el resultado.</p>
+            <details>
+                <summary>Ver algoritmo de reparto (JavaScript)</summary>
+                <pre><code>function chooseTeamWeighted() {
+    const redCount = participants.filter(p =&gt; p.team === 'red').length;
+    const blueCount = participants.filter(p =&gt; p.team === 'blue').length;
+    // si no hay asignados, moneda al aire
+    if (redCount + blueCount === 0) return Math.random() &lt; 0.5 ? 'red' : 'blue';
+    // evitar diferencia mayor que 1
+    if (redCount &gt; blueCount + 1) return 'blue';
+    if (blueCount &gt; redCount + 1) return 'red';
+    const probRed = blueCount / (redCount + blueCount);
+    return Math.random() &lt; probRed ? 'red' : 'blue';
+}</code></pre>
+            </details>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

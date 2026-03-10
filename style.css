@@ -1,0 +1,352 @@
+/* estilo inspirado en el ejemplo proporcionado */
+
+:root {
+    --red-team: #ff2a2a;
+    --blue-team: #00e5ff;
+    --bg-dark: #050505;
+    --bg-container: #0a0a0f;
+}
+
+@keyframes glitch {
+    0% { text-shadow: 4px 0 var(--red-team), -4px 0 var(--blue-team); }
+    5% { text-shadow: -4px 0 var(--red-team), 4px 0 var(--blue-team); }
+    10% { text-shadow: 4px 0 var(--red-team), -4px 0 var(--blue-team); }
+    100% { text-shadow: 4px 0 var(--red-team), -4px 0 var(--blue-team); }
+}
+
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background-color: var(--bg-dark);
+    color: #eee;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+.header-container {
+    background: var(--bg-container);
+    width: 100%;
+    text-align: center;
+    padding: 2rem 1rem;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+}
+
+.logo-row {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+.logo-row img {
+    height: 50px;
+    object-fit: contain;
+}
+.title-font {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    color: #ccc;
+    margin: 0;
+}
+
+.glitch-effect {
+    animation: glitch 3s infinite;
+}
+
+.landscape-container {
+    position: relative;
+    z-index: 0;
+    width: 1600px;
+    max-width: 100vw;
+    aspect-ratio: 16 / 9;
+    background-color: var(--bg-container);
+    box-shadow: 0 0 50px rgba(0,0,0,1);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    color: #eee;
+}
+
+/* section panels inside container */
+.landscape-container section {
+    background: rgba(255,255,255,0.05);
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(4px);
+}
+
+/* decorative underline for section headings */
+.landscape-container h2 {
+    position: relative;
+    padding-bottom: 0.3rem;
+}
+.landscape-container h2::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 50px; height: 2px;
+    background: linear-gradient(90deg, var(--red-team), var(--blue-team));
+}
+
+/* list item style improvements */
+#participant-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#participant-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: .6rem 0;
+    border-bottom: 1px solid #444;
+    transition: background 0.3s, color 0.3s;
+    color: #fff; /* default white name */
+}
+
+/* VS badge styling between teams */
+.vs-badge-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+}
+.vs-badge {
+    background: var(--bg-container);
+    border: 2px solid rgba(255,255,255,0.2);
+    transform: rotate(-10deg);
+    z-index: 10;
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    padding: 0.5rem 1.2rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    color: #ccc;
+    cursor: pointer; /* make clickable */
+}
+.vs-badge:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+/* floating animation for raffle */
+.floating {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    padding: 1rem 2rem;
+    background: var(--bg-container);
+    border: 2px solid rgba(255,255,255,0.2);
+    color: #fff;
+    z-index: 999;
+    transition: transform 1s ease, opacity 1s ease;
+}
+.floating.to-left { transform: translate(-150%, -50%); opacity: 0; }
+.floating.to-right{ transform: translate(150%, -50%); opacity: 0; }
+.floating.red { color: var(--red-team); }
+.floating.blue{ color: var(--blue-team); }
+#participant-list li:hover {
+    background: rgba(255,255,255,0.1);
+}
+#participant-list li.in-raffle {
+    font-weight: bold;
+    border-left: 4px solid var(--red-team);
+    padding-left: 0.4rem;
+    background: rgba(255,42,42,0.05);
+    animation: fadeIn 0.5s ease;
+}
+
+/* team colouring */
+#participant-list li.team-red {
+    /* text color indicates team */
+    color: var(--red-team);
+}
+#participant-list li.team-blue {
+    color: var(--blue-team);
+}
+
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+#participant-list li button {
+    margin-left: .5rem;
+}
+
+/* make buttons neon-y */
+button {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid #666;
+    color: #eee;
+    padding: 0.5rem 0.8rem;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: background 0.2s, transform 0.2s;
+}
+button:hover {
+    background: rgba(255,255,255,0.2);
+    transform: scale(1.05);
+}
+
+/* header underline */
+.header-underline {
+    width: 240px;
+    height: 4px;
+    margin: 0.5rem auto 0;
+    background: linear-gradient(90deg, var(--red-team), var(--blue-team));
+    opacity: 0.6;
+}
+
+input[type="text"] {
+    padding: 0.5rem;
+    border: 1px solid #666;
+    background: #111;
+    color: #eee;
+    width: 60%;
+}
+
+/* keep previous patterns at end */
+
+section {
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    margin-bottom: .5rem;
+    color: #bbb;
+}
+
+#participant-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: .3rem 0;
+    border-bottom: 1px solid #444;
+}
+
+#participant-list li button {
+    margin-left: .5rem;
+}
+
+/* equipos side by side */
+#teams {
+    display: flex;
+    gap: 2rem;
+    flex: 1;
+}
+
+/* no bullets inside team boxes */
+#team-red ul,
+#team-blue ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.team {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    padding: 1rem;
+    border: 2px solid;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team h3 {
+    margin-top: 0;
+}
+
+#team-red { border-color: var(--red-team); }
+#team-blue { border-color: var(--blue-team); }
+
+/* botones sencillos claros */
+button {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid #666;
+    color: #eee;
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+input[type="text"] {
+    padding: 0.4rem;
+    border: 1px solid #666;
+    background: #111;
+    color: #eee;
+}
+
+/* efectos de fondo similares al ejemplo */
+.tech-pattern {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.03'/%3E%3C/svg%3E");
+    z-index: -1;
+    pointer-events: none;
+}
+
+.battle-gradient {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(90deg, 
+        rgba(255, 42, 42, 0.12) 0%, 
+        transparent 45%, 
+        transparent 55%, 
+        rgba(0, 229, 255, 0.12) 100%);
+    z-index: -1;
+    pointer-events: none;
+}
+.battle-gradient {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(90deg, 
+        rgba(255, 42, 42, 0.12) 0%, 
+        transparent 45%, 
+        transparent 55%, 
+        rgba(0, 229, 255, 0.12) 100%);
+    z-index: 2;
+}
+
+.scanlines {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%);
+    background-size: 100% 4px;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.team-section {
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.red-side::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; width: 3px; height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--red-team), transparent);
+    box-shadow: 0 0 20px var(--red-team);
+}
+
+.blue-side::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 3px; height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--blue-team), transparent);
+    box-shadow: 0 0 20px var(--blue-team);
+}

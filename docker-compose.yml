@@ -1,0 +1,9 @@
+services:
+  sorteoapp:
+    build: .
+    container_name: sorteoapp
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./participants.json:/usr/src/app/participants.json
+    restart: unless-stopped
